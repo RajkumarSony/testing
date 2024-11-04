@@ -3,38 +3,23 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Change to your main branch if it is different
+      - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
-          cache: 'npm'
-
+          node-version: 16.x
       - name: Install dependencies
-        run: npm install
-
-      - name: Build the project
+        run: npm ci
+      - name: Build
         run: npm run build
-
-      - name: Set Git identity
-        run: |
-          git config --global user.name "RajkumarSony"
-          git config --global user.email "RajkumarSony@users.noreply.github.com"
-
-      - name: Deploy to GitHub Pages
-        env:
-          REPO: https://github.com/RajkumarSony/testing.git
-        run: |
-          git config --global user.name "RajkumarSony"
-          git config --global user.email "RajkumarSony@users.noreply.github.com"
-          git config --global credential.helper store
-          npm run deploy
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.7
+        with:
+          branch: gh-pages
+          folder: build
