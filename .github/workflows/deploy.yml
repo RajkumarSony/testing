@@ -36,4 +36,5 @@ jobs:
         run: |
           git config --global user.name "RajkumarSony"
           git config --global user.email "RajkumarSony@users.noreply.github.com"
+          git config --global credential.helper store
           npm run deploy
