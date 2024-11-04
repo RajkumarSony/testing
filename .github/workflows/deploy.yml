@@ -29,3 +29,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: RajkumarSony
+          REPO_NAME: testing
