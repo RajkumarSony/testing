@@ -11,12 +11,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          node-version: '18'
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
@@ -27,5 +25,15 @@ jobs:
       - name: Build the project
         run: npm run build
 
+      - name: Set Git identity
+        run: |
+          git config --global user.name "RajkumarSony"
+          git config --global user.email "RajkumarSony@users.noreply.github.com"
+
       - name: Deploy to GitHub Pages
-        run: npm run deploy
+        env:
+          REPO: https://github.com/RajkumarSony/testing.git
+        run: |
+          git config --global user.name "RajkumarSony"
+          git config --global user.email "RajkumarSony@users.noreply.github.com"
+          npm run deploy
